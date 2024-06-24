@@ -1,5 +1,7 @@
 # Node modules
 /node_modules
+/frontend/node_modules
+/backend/node_modules
 
 # Logs
 logs
@@ -10,10 +12,6 @@ yarn-error.log*
 
 # Environment variables
 .env
-
-# Dependency directories
-/frontend/node_modules
-/backend/node_modules
 
 # Production build
 /frontend/build
