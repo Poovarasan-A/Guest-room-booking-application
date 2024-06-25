@@ -6,6 +6,8 @@ const roomSlice = createSlice({
   initialState: {
     loading: false,
     isRoomCreated: false,
+    isRoomUpdated: false,
+    isRoomDeleted: false,
     rooms: [],
   },
   reducers: {
@@ -37,6 +39,70 @@ const roomSlice = createSlice({
         isRoomCreated: false,
       };
     },
+    getSingleRoomReq(state, action) {
+      return {
+        ...state,
+        loading: true,
+      };
+    },
+    getSingleRoomSuccess(state, action) {
+      return {
+        ...state,
+        loading: false,
+        room: action.payload.room,
+      };
+    },
+    getSingleRoomFail(state, action) {
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
+    },
+    updateRoomReq(state, action) {
+      return {
+        ...state,
+        loading: true,
+        isRoomUpdated: false,
+      };
+    },
+    updateRoomSuccess(state, action) {
+      return {
+        ...state,
+        loading: false,
+        isRoomUpdated: true,
+        room: action.payload.room,
+      };
+    },
+    updateRoomFail(state, action) {
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+        isRoomUpdated: false,
+      };
+    },
+    deleteRoomReq(state, action) {
+      return {
+        ...state,
+        loading: false,
+        isRoomDeleted: false,
+      };
+    },
+    deleteRoomSuccess(state, action) {
+      return {
+        ...state,
+        loading: false,
+        isRoomDeleted: true,
+      };
+    },
+    deleteRoomFail(state, action) {
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -65,6 +131,15 @@ export const {
   getAllRoomReq,
   getAllRoomSuccess,
   getAllRoomFail,
+  getSingleRoomReq,
+  getSingleRoomSuccess,
+  getSingleRoomFail,
+  updateRoomReq,
+  updateRoomSuccess,
+  updateRoomFail,
+  deleteRoomReq,
+  deleteRoomSuccess,
+  deleteRoomFail,
 } = actions;
 
 export default reducer;

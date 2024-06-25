@@ -4,7 +4,7 @@ const propertySchema = new mongoose.Schema({
   owner: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
-    // required: true,
+    required: true,
   },
   propertyName: {
     type: String,
@@ -39,6 +39,7 @@ const propertySchema = new mongoose.Schema({
     type: String,
     required: [true, "Please provide property description"],
   },
+  rooms: [{ type: mongoose.Schema.Types.ObjectId, ref: "Room" }],
 });
 
 export const Property = mongoose.model("Property", propertySchema);

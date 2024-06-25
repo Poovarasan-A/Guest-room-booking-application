@@ -35,7 +35,7 @@ const Login = () => {
   }, [isAuthenticated, user, error, navigate]);
 
   return (
-    <div className="text-white w-full h-full flex items-center justify-center">
+    <div className="text-white w-full h-screen flex items-center justify-center">
       <form
         onSubmit={registerHandler}
         className="w-[35%] bg-neutral-700 bg-opacity-40 rounded-xl py-14 px-14 flex flex-col gap-2"

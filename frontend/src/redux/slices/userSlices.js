@@ -1,10 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { loggedUser } from "../actions/userActions";
 
 const userSlice = createSlice({
   name: "user",
   initialState: {
     loading: false,
     isAuthenticated: false,
+    isUserUpdated: false,
+    user: {},
   },
   reducers: {
     //---------------------------- Create new user --------------------------------------
@@ -57,6 +60,63 @@ const userSlice = createSlice({
         error: null,
       };
     },
+    loadUserReq(state, action) {
+      return {
+        ...state,
+        loading: true,
+      };
+    },
+    loadUserSuccess(state, action) {
+      return {
+        ...state,
+        loading: false,
+        user: action.payload.user,
+      };
+    },
+    loadUserFail(state, action) {
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
+    },
+    updateUserReq(state, action) {
+      return {
+        ...state,
+        loading: true,
+      };
+    },
+    updateUserSuccess(state, action) {
+      return {
+        ...state,
+        loading: false,
+        isUserUpdated: true,
+        user: action.payload.user,
+      };
+    },
+    updateUserFail(state, action) {
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+        isUserUpdated: false,
+      };
+    },
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(loggedUser.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(loggedUser.fulfilled, (state, action) => {
+        state.loading = false;
+        state.user = action.payload.user;
+      })
+      .addCase(loggedUser.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      });
   },
 });
 
@@ -70,6 +130,12 @@ export const {
   loginSuccess,
   loginFail,
   clearLoginErr,
+  updateUserReq,
+  updateUserSuccess,
+  updateUserFail,
+  loadUserReq,
+  loadUserSuccess,
+  loadUserFail,
 } = actions;
 
 export default reducer;

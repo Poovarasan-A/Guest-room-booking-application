@@ -4,7 +4,7 @@ const roomSchema = new mongoose.Schema({
   property: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Property",
-    // required: true,
+    required: true,
   },
   roomName: {
     type: String,
@@ -18,10 +18,12 @@ const roomSchema = new mongoose.Schema({
     type: Number,
     required: [true, "Please provide no.of.beds"],
   },
-  amneties: {
-    type: String,
-    required: [true, "Please provide amneties"],
-  },
+  amenities: [
+    {
+      type: String,
+      required: [true, "Please provide amneties"],
+    },
+  ],
   rentPerDay: {
     type: Number,
     required: [true, "Please provide rent for per day"],
@@ -34,9 +36,12 @@ const roomSchema = new mongoose.Schema({
     type: Number,
     required: [true, "Please add maximum booking days"],
   },
-  roomImage: {
-    type: String,
-  },
+  images: [
+    {
+      type: String,
+      required: true,
+    },
+  ],
 });
 
 export const Room = mongoose.model("Room", roomSchema);

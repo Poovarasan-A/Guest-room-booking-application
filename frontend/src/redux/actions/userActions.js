@@ -1,3 +1,4 @@
+import { createAsyncThunk } from "@reduxjs/toolkit";
 import {
   loginFail,
   loginReq,
@@ -5,6 +6,9 @@ import {
   registerFail,
   registerReq,
   registerSuccess,
+  updateUserFail,
+  updateUserReq,
+  updateUserSuccess,
 } from "../slices/userSlices";
 import axios from "axios";
 
@@ -30,5 +34,33 @@ export const loginUser = (formData) => async (dispatch) => {
     dispatch(loginSuccess(data));
   } catch (error) {
     dispatch(loginFail());
+  }
+};
+
+//Load Loggedin User datas
+
+export const loggedUser = createAsyncThunk(
+  "user/loggedUser",
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await axios.get(`/api/profile`);
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(
+        error.response ? error.response.data : error.message
+      );
+    }
+  }
+);
+
+//==================== Update Action =================================
+
+export const updateUser = (id, userData) => async (dispatch) => {
+  try {
+    dispatch(updateUserReq());
+    const { data } = await axios.put(`/api/update/user/${id}`, userData);
+    dispatch(updateUserSuccess(data));
+  } catch (error) {
+    dispatch(updateUserFail());
   }
 };

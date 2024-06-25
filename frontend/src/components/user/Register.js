@@ -36,12 +36,13 @@ const Register = () => {
   }, [isAuthenticated, name, error, navigate]);
 
   return (
-    <div className="text-white w-full h-full flex items-center justify-center">
+    <div className="text-white w-full h-screen flex items-center justify-center">
       <form
         onSubmit={registerHandler}
         className="w-[35%] bg-neutral-700/40 rounded-xl py-14 px-14 flex flex-col gap-2"
       >
         <h2 className="font-bold text-2xl py-4">Create new account</h2>
+
         <div className="flex flex-col gap-2">
           <label htmlFor="name">Name</label>
           <input

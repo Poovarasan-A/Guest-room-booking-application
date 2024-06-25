@@ -6,6 +6,8 @@ const propertySlice = createSlice({
   initialState: {
     loading: false,
     isPropertyCreated: false,
+    isPropertyUpdated: false,
+    isPropertyDeleted: false,
     isRoomCreated: false,
   },
   reducers: {
@@ -37,6 +39,70 @@ const propertySlice = createSlice({
         isPropertyCreated: false,
       };
     },
+    getSinglePropertyReq(state, action) {
+      return {
+        ...state,
+        loading: true,
+      };
+    },
+    getSinglePropertySuccess(state, action) {
+      return {
+        ...state,
+        loading: false,
+        property: action.payload.property,
+      };
+    },
+    getSinglePropertyFail(state, action) {
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
+    },
+    updatePropertyReq(state, action) {
+      return {
+        ...state,
+        loading: true,
+        isPropertyUpdated: false,
+      };
+    },
+    updatePropertySuccess(state, action) {
+      return {
+        ...state,
+        loading: false,
+        isPropertyUpdated: true,
+        property: action.payload.property,
+      };
+    },
+    updatePropertyFail(state, action) {
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+        isPropertyUpdated: false,
+      };
+    },
+    deletePropertyReq(state, action) {
+      return {
+        ...state,
+        loading: false,
+        isPropertyDeleted: false,
+      };
+    },
+    deletePropertySuccess(state, action) {
+      return {
+        ...state,
+        loading: false,
+        isPropertyDeleted: true,
+      };
+    },
+    deletePropertyFail(state, action) {
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -62,6 +128,15 @@ export const {
   addPropertySuccess,
   addPropertyFail,
   clearPropertyCreated,
+  getSinglePropertyReq,
+  getSinglePropertySuccess,
+  getSinglePropertyFail,
+  updatePropertyReq,
+  updatePropertySuccess,
+  updatePropertyFail,
+  deletePropertyReq,
+  deletePropertySuccess,
+  deletePropertyFail,
 } = actions;
 
 export default reducer;

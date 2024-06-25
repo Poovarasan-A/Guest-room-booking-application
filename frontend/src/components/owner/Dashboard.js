@@ -1,18 +1,15 @@
-// import { useEffect } from "react";
-// import { useDispatch, useSelector } from "react-redux";
-// import { getRooms } from "../../redux/actions/propertyAction";
+import { Link } from "react-router-dom";
+import Sidebar from "./Sidebar";
 
 const Dashboard = () => {
-  //   const dispatch = useDispatch();
-  //   const { rooms } = useSelector((state) => state.propertyState);
-
-  //   useEffect(() => {
-  //     dispatch(getRooms());
-  //   }, [dispatch]);
-
   return (
-    <div className="text-white w-full h-full flex items-center justify-center">
+    <div className="text-white w-full h-full flex flex-col items-center justify-center">
+      <Sidebar />
       <div className=" text-2xl">Dashboard | Under Construction</div>
+      <div className="flex gap-14">
+        <Link to="/property">Properties</Link>
+        <Link to="/add/property">Add Property</Link>
+      </div>
     </div>
   );
 };

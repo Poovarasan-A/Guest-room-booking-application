@@ -3,8 +3,19 @@ import {
   addPropertyFail,
   addPropertyReq,
   addPropertySuccess,
+  deletePropertyFail,
+  deletePropertyReq,
+  deletePropertySuccess,
+  getSinglePropertyFail,
+  getSinglePropertyReq,
+  getSinglePropertySuccess,
+  updatePropertyFail,
+  updatePropertyReq,
+  updatePropertySuccess,
 } from "../slices/propertySlice";
 import { createAsyncThunk } from "@reduxjs/toolkit";
+
+// -------------------------------- add new Property -----------------------------------------
 
 export const addNewProperty = (propertyData) => async (dispatch) => {
   try {
@@ -15,6 +26,8 @@ export const addNewProperty = (propertyData) => async (dispatch) => {
     dispatch(addPropertyFail());
   }
 };
+
+// -------------------------------- Get all Properties -----------------------------------------
 
 export const getProperties = createAsyncThunk(
   "property/getProperties",
@@ -29,3 +42,42 @@ export const getProperties = createAsyncThunk(
     }
   }
 );
+
+// -------------------------------- Get single Property -----------------------------------------
+
+export const getSingleProperty = (id) => async (dispatch) => {
+  try {
+    dispatch(getSinglePropertyReq());
+    const { data } = await axios.get(`/api/property/${id}`);
+    dispatch(getSinglePropertySuccess(data));
+  } catch (error) {
+    dispatch(getSinglePropertyFail());
+  }
+};
+
+// -------------------------------- Get single Property -----------------------------------------
+
+export const updateProperty = (id, propertyData) => async (dispatch) => {
+  try {
+    dispatch(updatePropertyReq());
+    const { data } = await axios.put(
+      `/api/update/property/${id}`,
+      propertyData
+    );
+    dispatch(updatePropertySuccess(data));
+  } catch (error) {
+    dispatch(updatePropertyFail());
+  }
+};
+
+// -------------------------------- Delete Property -----------------------------------------
+
+export const deleteProperty = (id) => async (dispatch) => {
+  try {
+    dispatch(deletePropertyReq());
+    await axios.delete(`/api/delete/property/${id}`);
+    dispatch(deletePropertySuccess());
+  } catch (error) {
+    dispatch(deletePropertyFail());
+  }
+};
