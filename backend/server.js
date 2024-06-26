@@ -7,6 +7,7 @@ import cookieParser from "cookie-parser";
 import user from "./routes/userRoutes.js";
 import property from "./routes/propertyRoutes.js";
 import cors from "cors";
+import booking from "./routes/bookingRoutes.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -28,6 +29,7 @@ app.use("/images", express.static(path.join(__dirname, "images")));
 
 app.use("/api/", user);
 app.use("/api/", property);
+app.use("/api/", booking);
 
 const port = process.env.PORT;
 

@@ -67,10 +67,19 @@ export const getSingleRoom = (id) => async (dispatch) => {
 
 // -------------------------------- Update Room -----------------------------------------
 
-export const updateRoom = (id, roomData) => async (dispatch) => {
+export const updateRoom = (id, combinedData) => async (dispatch) => {
   try {
     dispatch(updateRoomReq());
-    const { data } = await axios.put(`/api/update/room/${id}`, roomData);
+    const config = {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    };
+    const { data } = await axios.put(
+      `/api/update/room/${id}`,
+      combinedData,
+      config
+    );
     dispatch(updateRoomSuccess(data));
   } catch (error) {
     dispatch(updateRoomFail());

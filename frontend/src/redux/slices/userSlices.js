@@ -102,6 +102,20 @@ const userSlice = createSlice({
         isUserUpdated: false,
       };
     },
+    logoutUserSuccess(state, action) {
+      return {
+        ...state,
+        loading: false,
+        isAuthenticated: false,
+      };
+    },
+    logoutUserFail(state, action) {
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -136,6 +150,8 @@ export const {
   loadUserReq,
   loadUserSuccess,
   loadUserFail,
+  logoutUserSuccess,
+  logoutUserFail,
 } = actions;
 
 export default reducer;

@@ -82,6 +82,12 @@ const propertySlice = createSlice({
         isPropertyUpdated: false,
       };
     },
+    clearPropertyUpdated(state, action) {
+      return {
+        ...state,
+        isPropertyUpdated: false,
+      };
+    },
     deletePropertyReq(state, action) {
       return {
         ...state,
@@ -101,6 +107,12 @@ const propertySlice = createSlice({
         ...state,
         loading: false,
         error: action.payload,
+      };
+    },
+    clearPropertyDeleted(state, action) {
+      return {
+        ...state,
+        isPropertyDeleted: false,
       };
     },
   },
@@ -134,9 +146,11 @@ export const {
   updatePropertyReq,
   updatePropertySuccess,
   updatePropertyFail,
+  clearPropertyUpdated,
   deletePropertyReq,
   deletePropertySuccess,
   deletePropertyFail,
+  clearPropertyDeleted,
 } = actions;
 
 export default reducer;

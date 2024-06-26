@@ -17,7 +17,6 @@ const Home = () => {
   return (
     <div className="text-white w-full h-screen flex flex-col items-center justify-center">
       <Header />
-      <div className="text-2xl">Home | Under Construction</div>
       <div className="flex gap-10">
         {rooms &&
           rooms.map((room) => (
@@ -26,11 +25,11 @@ const Home = () => {
               key={room._id}
               className="w-[15rem] h-[20rem] bg-white rounded-2xl overflow-hidden text-black"
             >
-              <div className=" w-full">
+              <div className=" w-full h-[15rem]">
                 <img
                   src={room.images[0] || "/images/props-img.jpg"}
                   alt="room"
-                  className=""
+                  className="w-full h-full object-cover"
                 />
               </div>
 

@@ -35,7 +35,14 @@ router.route("/properties").get(getAllProperties);
 router.route("/property/:id").get(singleProperty);
 router.route("/update/property/:id").put(updateProperty);
 router.route("/room/:id").get(singleRoom);
-router.route("/update/room/:id").put(updateRoom);
+router
+  .route("/update/room/:id")
+  .put(
+    isAuthenticatedUser,
+    authorizedUser("owner"),
+    upload.array("images"),
+    updateRoom
+  );
 router.route("/delete/property/:id").delete(deleteProperty);
 router.route("/delete/room/:id").delete(deleteRoom);
 

@@ -6,7 +6,12 @@ const bookingSchema = new mongoose.Schema({
     ref: "Room",
     required: true,
   },
-  customer: {
+  guest: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+    required: true,
+  },
+  owner: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
     required: true,
@@ -19,4 +24,10 @@ const bookingSchema = new mongoose.Schema({
     type: Date,
     required: [true, "Please select checkOut date"],
   },
+  totalPrice: {
+    type: Number,
+    required: true,
+  },
 });
+
+export const Booking = mongoose.model("Booking", bookingSchema);

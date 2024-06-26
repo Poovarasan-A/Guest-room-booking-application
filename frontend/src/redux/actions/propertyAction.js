@@ -55,7 +55,7 @@ export const getSingleProperty = (id) => async (dispatch) => {
   }
 };
 
-// -------------------------------- Get single Property -----------------------------------------
+// -------------------------------- Update Property -----------------------------------------
 
 export const updateProperty = (id, propertyData) => async (dispatch) => {
   try {

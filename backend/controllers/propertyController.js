@@ -92,7 +92,10 @@ export const getAllProperties = async (req, res, next) => {
 
 export const singleProperty = async (req, res, next) => {
   try {
-    const property = await Property.findById(req.params.id);
+    const property = await Property.findById(req.params.id).populate(
+      "owner",
+      "name"
+    );
     if (!property) {
       res.status(404).json({ message: "Property not found" });
     }
@@ -146,6 +149,29 @@ export const updateRoom = async (req, res, next) => {
     let room = await Room.findById(req.params.id);
     if (!room) {
       res.status(404).json({ message: "Room not found" });
+    }
+
+    let images = [];
+
+    if (req.body.imagesDeleted === "false") {
+      images = room.images;
+    }
+
+    const BASE_URL = `${req.protocol}://${req.get("host")}`;
+
+    if (req.files.length > 0) {
+      req.files.forEach((file) => {
+        let url = `${BASE_URL}/images/${file.filename}`; // Use file.filename instead of file.originalname
+        images.push(url);
+      });
+    }
+
+    req.body.images = images;
+
+    if (typeof req.body.amenities === "string") {
+      req.body.amenities = req.body.amenities
+        .split(",")
+        .map((amenity) => amenity.trim());
     }
 
     room = await Room.findByIdAndUpdate(req.params.id, req.body, {

@@ -3,6 +3,8 @@ import {
   loginFail,
   loginReq,
   loginSuccess,
+  logoutUserFail,
+  logoutUserSuccess,
   registerFail,
   registerReq,
   registerSuccess,
@@ -61,6 +63,17 @@ export const updateUser = (id, userData) => async (dispatch) => {
     const { data } = await axios.put(`/api/update/user/${id}`, userData);
     dispatch(updateUserSuccess(data));
   } catch (error) {
-    dispatch(updateUserFail());
+    dispatch(updateUserFail(error));
+  }
+};
+
+//==================== Update Action =================================
+
+export const logoutUser = async (dispatch) => {
+  try {
+    await axios.get("/api/logout/");
+    dispatch(logoutUserSuccess());
+  } catch (error) {
+    dispatch(logoutUserFail(error));
   }
 };

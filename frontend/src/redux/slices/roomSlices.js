@@ -82,6 +82,12 @@ const roomSlice = createSlice({
         isRoomUpdated: false,
       };
     },
+    clearRoomUpdated(state, action) {
+      return {
+        ...state,
+        isRoomUpdated: false,
+      };
+    },
     deleteRoomReq(state, action) {
       return {
         ...state,
@@ -101,6 +107,13 @@ const roomSlice = createSlice({
         ...state,
         loading: false,
         error: action.payload,
+        isRoomDeleted: false,
+      };
+    },
+    clearRoomDeleted(state, action) {
+      return {
+        ...state,
+        isRoomDeleted: false,
       };
     },
   },
@@ -137,9 +150,11 @@ export const {
   updateRoomReq,
   updateRoomSuccess,
   updateRoomFail,
+  clearRoomUpdated,
   deleteRoomReq,
   deleteRoomSuccess,
   deleteRoomFail,
+  clearRoomDeleted,
 } = actions;
 
 export default reducer;
