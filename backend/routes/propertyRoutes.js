@@ -6,6 +6,7 @@ import {
   deleteRoom,
   getAllProperties,
   getAllRooms,
+  getOwnerProperties,
   singleProperty,
   singleRoom,
   updateProperty,
@@ -33,7 +34,9 @@ router
 router.route("/rooms").get(getAllRooms);
 router.route("/properties").get(getAllProperties);
 router.route("/property/:id").get(singleProperty);
-router.route("/update/property/:id").put(updateProperty);
+router
+  .route("/update/property/:id")
+  .put(isAuthenticatedUser, authorizedUser("owner"), updateProperty);
 router.route("/room/:id").get(singleRoom);
 router
   .route("/update/room/:id")
@@ -43,7 +46,14 @@ router
     upload.array("images"),
     updateRoom
   );
-router.route("/delete/property/:id").delete(deleteProperty);
-router.route("/delete/room/:id").delete(deleteRoom);
+router
+  .route("/delete/property/:id")
+  .delete(isAuthenticatedUser, authorizedUser("owner"), deleteProperty);
+router
+  .route("/delete/room/:id")
+  .delete(isAuthenticatedUser, authorizedUser("owner"), deleteRoom);
+router
+  .route("/properties/:id")
+  .get(isAuthenticatedUser, authorizedUser("owner"), getOwnerProperties);
 
 export default router;

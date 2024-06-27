@@ -1,5 +1,8 @@
 import axios from "axios";
 import {
+  getGuestBookingFail,
+  getGuestBookingReq,
+  getGuestBookingSuccess,
   getSingleBookingFail,
   getSingleBookingReq,
   getSingleBookingSuccess,
@@ -25,5 +28,15 @@ export const roombookings = (id) => async (dispatch) => {
     dispatch(getSingleBookingSuccess(data));
   } catch (error) {
     dispatch(getSingleBookingFail());
+  }
+};
+
+export const guestRoomBookings = (id) => async (dispatch) => {
+  try {
+    dispatch(getGuestBookingReq());
+    const { data } = await axios.get(`/api/guest/bookings/${id}`);
+    dispatch(getGuestBookingSuccess(data));
+  } catch (error) {
+    dispatch(getGuestBookingFail());
   }
 };

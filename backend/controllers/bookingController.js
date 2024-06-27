@@ -30,3 +30,21 @@ export const getSingleBooking = async (req, res, next) => {
     });
   }
 };
+
+export const getGuestBookings = async (req, res, next) => {
+  const userId = req.params.id;
+  try {
+    const bookings = await Booking.find({ guest: userId })
+      .populate("room", "roomName images")
+      .populate("property", "state city");
+
+    res.status(200).json({
+      message: "Booking fetched successfully",
+      bookings,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      message: error.message,
+    });
+  }
+};

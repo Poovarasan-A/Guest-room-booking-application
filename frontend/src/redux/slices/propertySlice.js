@@ -59,6 +59,20 @@ const propertySlice = createSlice({
         error: action.payload,
       };
     },
+    getOwnerPropertySuccess(state, action) {
+      return {
+        ...state,
+        loadin: false,
+        properties: action.payload.properties,
+      };
+    },
+    getOnwerPropertyFail(state, action) {
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
+    },
     updatePropertyReq(state, action) {
       return {
         ...state,
@@ -143,6 +157,8 @@ export const {
   getSinglePropertyReq,
   getSinglePropertySuccess,
   getSinglePropertyFail,
+  getOwnerPropertySuccess,
+  getOnwerPropertyFail,
   updatePropertyReq,
   updatePropertySuccess,
   updatePropertyFail,

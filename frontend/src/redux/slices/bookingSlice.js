@@ -5,6 +5,7 @@ const bookSlice = createSlice({
   initialState: {
     loading: false,
     bookings: [],
+    isBookingCreated: false,
     error: null,
   },
   reducers: {
@@ -19,6 +20,7 @@ const bookSlice = createSlice({
         ...state,
         loading: false,
         booking: action.payload.booking,
+        isBookingCreated: true,
       };
     },
     newBookingFail(state, action) {
@@ -26,6 +28,7 @@ const bookSlice = createSlice({
         ...state,
         loading: false,
         error: action.payload,
+        isBookingCreated: false,
       };
     },
 
@@ -49,6 +52,26 @@ const bookSlice = createSlice({
         error: action.payload,
       };
     },
+    getGuestBookingReq(state, action) {
+      return {
+        ...state,
+        loading: true,
+      };
+    },
+    getGuestBookingSuccess(state, action) {
+      return {
+        ...state,
+        loading: false,
+        bookings: action.payload.bookings,
+      };
+    },
+    getGuestBookingFail(state, action) {
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
+    },
   },
 });
 
@@ -61,6 +84,9 @@ export const {
   getSingleBookingReq,
   getSingleBookingSuccess,
   getSingleBookingFail,
+  getGuestBookingReq,
+  getGuestBookingSuccess,
+  getGuestBookingFail,
 } = actions;
 
 export default reducer;

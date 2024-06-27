@@ -2,6 +2,9 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { loginUser } from "../../redux/actions/userActions";
+import toast from "react-hot-toast";
+import { clearLoginErr } from "../../redux/slices/userSlices";
+import { FaHome } from "react-icons/fa";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -13,7 +16,7 @@ const Login = () => {
     (state) => state.userState
   );
 
-  const registerHandler = (e) => {
+  const loginHandler = (e) => {
     e.preventDefault();
     const formData = {
       email,
@@ -25,29 +28,47 @@ const Login = () => {
 
   useEffect(() => {
     if (isAuthenticated) {
-      console.log(`welcome ${user.name}! `);
+      toast.success(`welcome ${user.name}! `, {
+        position: "top-center",
+      });
       navigate("/");
       return;
     }
     if (error) {
-      return console.log(error);
+      toast.error(error, {
+        position: "top-center",
+      });
+      dispatch(clearLoginErr());
     }
-  }, [isAuthenticated, user, error, navigate]);
+  }, [isAuthenticated, user, error, navigate, dispatch]);
 
   return (
-    <div className="text-white w-full h-screen flex items-center justify-center">
+    <div className="text-white w-full h-screen flex items-center justify-end relative">
+      <div className="absolute top-12 left-20 z-20">
+        <Link to="/" className="flex items-center gap-2 cursor-pointer">
+          <FaHome className="text-white text-3xl" />
+          <h2 className="text-3xl flex">
+            <p className="text-blue-500">𝐠𝐮𝐞𝐬𝐭</p>
+            <p className="text-white">𝐒𝐭𝐚𝐲</p>
+          </h2>
+        </Link>
+      </div>
+      <div className="absolute z-0 inset-0">
+        <img src="/images/bg.jpg" alt="bg" />
+        <div className="absolute inset-0 bg-black/70"></div>
+      </div>
       <form
-        onSubmit={registerHandler}
-        className="w-[35%] bg-neutral-700 bg-opacity-40 rounded-xl py-14 px-14 flex flex-col gap-2"
+        onSubmit={loginHandler}
+        className="w-[32%] bg-neutral-900/95 rounded-2xl py-14 px-10 flex flex-col gap-3 z-10  mr-[10rem]"
       >
         <h2 className="font-bold text-2xl py-4">Login to continue</h2>
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col gap-3">
           <label htmlFor="email">Email or Mobile number</label>
           <input
             id="email"
             type="text"
             placeholder="Email or Mobile number"
-            className="p-2 rounded-sm text-black"
+            className="px-4 py-3 rounded-lg  text-white bg-transparent border-[1px] border-white/20"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
@@ -58,7 +79,7 @@ const Login = () => {
             id="password"
             type="password"
             placeholder="Password"
-            className="p-2 rounded-sm text-black"
+            className="px-4 py-3 rounded-lg  text-white bg-transparent border-[1px] border-white/20"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
@@ -72,7 +93,7 @@ const Login = () => {
         <p>
           New user?
           <Link to="/register" className="text-blue-600">
-            &nbsp;signUp
+            &nbsp;Signup
           </Link>
         </p>
       </form>

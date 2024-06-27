@@ -10,6 +10,7 @@ const UpdateRoom = () => {
   const [roomName, setRoomName] = useState("");
   const [floorSize, setFloorSize] = useState("");
   const [noOfBeds, setNoOfBeds] = useState("");
+  const [noOfGuests, setNoOfGuests] = useState("");
   const [amenities, setAmenities] = useState([]);
   const [rentPerDay, setRentPerDay] = useState("");
   const [minBookingDays, setMinBookingDays] = useState("");
@@ -21,6 +22,8 @@ const UpdateRoom = () => {
   const { isRoomUpdated, error, room } = useSelector(
     (state) => state.roomState
   );
+  const { user } = useSelector((state) => state.userState);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -60,6 +63,7 @@ const UpdateRoom = () => {
       roomName,
       floorSize,
       noOfBeds,
+      noOfGuests,
       amenities,
       rentPerDay,
       minBookingDays,
@@ -88,6 +92,9 @@ const UpdateRoom = () => {
   };
 
   useEffect(() => {
+    if (user && user.userType === "guest") {
+      navigate("/");
+    }
     if (isRoomUpdated) {
       console.log("Room Updated Successfully!!");
       dispatch(clearRoomUpdated());
@@ -98,13 +105,14 @@ const UpdateRoom = () => {
       return console.log(error);
     }
     dispatch(getSingleRoom(id));
-  }, [isRoomUpdated, error, dispatch, navigate, id]);
+  }, [isRoomUpdated, error, dispatch, navigate, id, user]);
 
   useEffect(() => {
     if (room) {
       setRoomName(room.roomName);
       setFloorSize(room.floorSize);
       setNoOfBeds(room.noOfBeds);
+      setNoOfGuests(room.noOfGuests);
       setRentPerDay(room.rentPerDay);
       setMinBookingDays(room.minBookingDays);
       setMaxBookingDays(room.maxBookingDays);
@@ -147,16 +155,29 @@ const UpdateRoom = () => {
                 onChange={(e) => setFloorSize(e.target.value)}
               />
             </div>
-            <div className="flex flex-col gap-3">
-              <label htmlFor="beds">No of Beds</label>
-              <input
-                id="beds"
-                type="number"
-                placeholder="No of Beds"
-                className="px-4 py-3 rounded-lg  text-white bg-transparent border-[1px] border-white/20 "
-                value={noOfBeds}
-                onChange={(e) => setNoOfBeds(e.target.value)}
-              />
+            <div className="w-full flex gap-3">
+              <div className="w-full flex flex-col gap-3">
+                <label htmlFor="beds">No of Beds</label>
+                <input
+                  id="beds"
+                  type="number"
+                  placeholder="No of Beds"
+                  className="px-4 py-3 rounded-lg  text-white bg-transparent border-[1px] border-white/20 "
+                  value={noOfBeds}
+                  onChange={(e) => setNoOfBeds(e.target.value)}
+                />
+              </div>
+              <div className="w-full flex flex-col gap-3">
+                <label htmlFor="guests">No of Guets</label>
+                <input
+                  id="guests"
+                  type="number"
+                  placeholder="No of Guests"
+                  className="px-4 py-3 rounded-lg  text-white bg-transparent border-[1px] border-white/20 "
+                  value={noOfGuests}
+                  onChange={(e) => setNoOfGuests(e.target.value)}
+                />
+              </div>
             </div>
           </div>
           {/* 2nd half */}
@@ -371,7 +392,10 @@ const UpdateRoom = () => {
 
             <div className="p-5 my-4 border-2 w-full flex gap-4  border-gray-200 rounded-lg">
               <div className="w-full flex flex-wrap gap-2">
-                <div className="w-[6rem] min-h-[6rem] flex flex-col items-center justify-center border-2 rounded-md border-dashed border-gray-300">
+                <label
+                  htmlFor="uploadImg"
+                  className="w-[6rem] min-h-[4rem] flex flex-col items-center justify-center border-2 rounded-md border-dashed border-gray-300 cursor-pointer"
+                >
                   <input
                     type="file"
                     id="uploadImg"
@@ -380,22 +404,26 @@ const UpdateRoom = () => {
                     multiple
                     onChange={onImagesChange}
                   />
-                  <label
-                    htmlFor="uploadImg"
-                    className="text-blue-500 text-xs underline cursor-pointer"
-                  >
+                  <span className="text-blue-500 text-xs underline cursor-pointer">
                     <MdFileUpload className="text-lg" />
-                  </label>
+                  </span>
                   <p className="text-[9px] text-gray-400 pt-1">
                     jpeg, jpg or png
                   </p>
-                </div>
+                </label>
                 {imagesPreview.map((image, index) => (
-                  <div key={index} className="relative">
-                    <img src={image} alt={""} width={97} height={97} />
+                  <div
+                    key={index}
+                    className="relative w-[6rem] h-[4rem] overflow-hidden"
+                  >
+                    <img
+                      src={image}
+                      alt={""}
+                      className="w-full h-full object-cover"
+                    />
                     <button
                       className="absolute top-3 right-2 bg-black p-1.5 rounded-full"
-                      onClick={removeImage}
+                      onClick={() => removeImage(image)}
                     >
                       <BsTrash className="text-xs" />
                     </button>

@@ -17,6 +17,8 @@ const AddProperty = () => {
   const { isPropertyCreated, error, property } = useSelector(
     (state) => state.propertyState
   );
+  const { user } = useSelector((state) => state.userState);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -36,6 +38,9 @@ const AddProperty = () => {
   };
 
   useEffect(() => {
+    if (user && user.userType === "guest") {
+      navigate("/");
+    }
     if (isPropertyCreated) {
       console.log("Property Created Successfully!!");
       dispatch(clearPropertyCreated());
@@ -45,7 +50,7 @@ const AddProperty = () => {
     if (error) {
       return console.log(error);
     }
-  }, [isPropertyCreated, error, dispatch, navigate, property]);
+  }, [isPropertyCreated, error, dispatch, navigate, property, user]);
 
   return (
     <div className="text-white w-full h-screen flex flex-col items-center justify-center tracking-wider">

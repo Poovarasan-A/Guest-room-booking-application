@@ -6,6 +6,8 @@ import {
   deletePropertyFail,
   deletePropertyReq,
   deletePropertySuccess,
+  getOnwerPropertyFail,
+  getOwnerPropertySuccess,
   getSinglePropertyFail,
   getSinglePropertyReq,
   getSinglePropertySuccess,
@@ -42,6 +44,17 @@ export const getProperties = createAsyncThunk(
     }
   }
 );
+
+// -------------------------------- Get owner Properties -----------------------------------------
+
+export const ownerProperties = (id) => async (dispatch) => {
+  try {
+    const { data } = await axios.get(`/api/properties/${id}`);
+    dispatch(getOwnerPropertySuccess(data));
+  } catch (error) {
+    dispatch(getOnwerPropertyFail(error));
+  }
+};
 
 // -------------------------------- Get single Property -----------------------------------------
 

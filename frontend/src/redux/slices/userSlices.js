@@ -122,14 +122,17 @@ const userSlice = createSlice({
       .addCase(loggedUser.pending, (state) => {
         state.loading = true;
         state.error = null;
+        state.isAuthenticated = false;
       })
       .addCase(loggedUser.fulfilled, (state, action) => {
         state.loading = false;
         state.user = action.payload.user;
+        state.isAuthenticated = true;
       })
       .addCase(loggedUser.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
+        state.isAuthenticated = false;
       });
   },
 });

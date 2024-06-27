@@ -20,6 +20,8 @@ const UpdateProperty = () => {
   const { isPropertyUpdated, error, property } = useSelector(
     (state) => state.propertyState
   );
+  const { user } = useSelector((state) => state.userState);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -41,6 +43,9 @@ const UpdateProperty = () => {
   };
 
   useEffect(() => {
+    if (user && user.userType === "guest") {
+      navigate("/");
+    }
     if (isPropertyUpdated) {
       console.log("Property Update Successfully!!");
       dispatch(clearPropertyUpdated());
@@ -51,7 +56,7 @@ const UpdateProperty = () => {
       return console.log(error);
     }
     dispatch(getSingleProperty(id));
-  }, [isPropertyUpdated, error, dispatch, navigate, id]);
+  }, [isPropertyUpdated, error, dispatch, navigate, id, user]);
 
   useEffect(() => {
     if (property) {

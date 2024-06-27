@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 
 const propertySchema = new mongoose.Schema({
+  //Reference to the owner of the property, for fetching properties based on owner
   owner: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
@@ -39,6 +40,8 @@ const propertySchema = new mongoose.Schema({
     type: String,
     required: [true, "Please provide property description"],
   },
+
+  //Array of references to the rooms, to store rooms based on property
   rooms: [{ type: mongoose.Schema.Types.ObjectId, ref: "Room" }],
 });
 

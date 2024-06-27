@@ -20,10 +20,16 @@ export const newUser = (formData) => async (dispatch) => {
   try {
     dispatch(registerReq());
 
-    const { data } = await axios.post(`/api/register`, formData);
+    const config = {
+      headers: {
+        "Content-type": "multipart/form-data",
+      },
+    };
+
+    const { data } = await axios.post(`/api/register`, formData, config);
     dispatch(registerSuccess(data));
   } catch (error) {
-    dispatch(registerFail());
+    dispatch(registerFail(error.response.data.message));
   }
 };
 
@@ -35,7 +41,7 @@ export const loginUser = (formData) => async (dispatch) => {
     const { data } = await axios.post(`/api/login`, formData);
     dispatch(loginSuccess(data));
   } catch (error) {
-    dispatch(loginFail());
+    dispatch(loginFail(error.response.data.message));
   }
 };
 
@@ -63,7 +69,7 @@ export const updateUser = (id, userData) => async (dispatch) => {
     const { data } = await axios.put(`/api/update/user/${id}`, userData);
     dispatch(updateUserSuccess(data));
   } catch (error) {
-    dispatch(updateUserFail(error));
+    dispatch(updateUserFail(error.response.data.message));
   }
 };
 
@@ -74,6 +80,6 @@ export const logoutUser = async (dispatch) => {
     await axios.get("/api/logout/");
     dispatch(logoutUserSuccess());
   } catch (error) {
-    dispatch(logoutUserFail(error));
+    dispatch(logoutUserFail(error.response.data.message));
   }
 };
