@@ -69,8 +69,17 @@ export const loggedUser = createAsyncThunk(
 export const updateUser = (id, userData) => async (dispatch) => {
   try {
     dispatch(updateUserReq());
+    const config = {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    };
     // sending datas to update user details
-    const { data } = await axios.put(`/api/update/user/${id}`, userData);
+    const { data } = await axios.put(
+      `/api/update/user/${id}`,
+      userData,
+      config
+    );
     dispatch(updateUserSuccess(data));
   } catch (error) {
     dispatch(updateUserFail(error.response.data.message));

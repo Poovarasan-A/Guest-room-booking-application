@@ -23,7 +23,7 @@ const router = express.Router();
 
 //------------------------- Routes of Users -----------------------------------
 //Route for User Register
-router.route("/register").post(upload.single("avatar"), registerUser);
+router.route("/register").post(upload.array("images"), registerUser);
 //Route for User Login
 router.route("/login").post(loginUser);
 //Route for User Logout
@@ -33,6 +33,6 @@ router.route("/profile").get(isAuthenticatedUser, getUserProfile);
 //Route for Fetching specific user details
 router.route("/user/:id").get(specificUser);
 //Route for updating user details
-router.route("/update/user/:id").put(updateUser);
+router.route("/update/user/:id").put(upload.array("images"), updateUser);
 
 export default router;

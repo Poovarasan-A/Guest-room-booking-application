@@ -45,6 +45,7 @@ const roomSchema = new mongoose.Schema({
     {
       type: String,
       required: true,
+      minLength: [5, "Please add atleast 5 images"],
     },
   ],
 });

@@ -34,8 +34,8 @@ const Login = () => {
       navigate("/");
       return;
     }
-    if (error) {
-      toast.error(error, {
+    if (error && error.message) {
+      toast.error(error.message, {
         position: "top-center",
       });
       dispatch(clearLoginErr()); // ensures clearing of error which already showed

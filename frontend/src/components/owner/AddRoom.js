@@ -371,7 +371,9 @@ const AddRoom = () => {
           </div>
           {/* Images Uploading */}
           <div className="w-[45%]">
-            <label htmlFor="maxBooking">Property Images</label>
+            <label htmlFor="maxBooking">
+              Property Images (add atleast 5 images)
+            </label>
 
             <div className="p-5 my-4 border-2 w-full flex gap-4  border-gray-200 rounded-lg">
               <div className="w-full flex flex-wrap gap-2">

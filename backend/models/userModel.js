@@ -25,9 +25,11 @@ const userSchema = new mongoose.Schema({
     minLength: [6, "Password characters should be atleast 6"],
     select: false,
   },
-  avatar: {
-    type: String,
-  },
+  images: [
+    {
+      type: String,
+    },
+  ],
   userType: { type: String, default: "guest" },
   createdOn: {
     type: Date,

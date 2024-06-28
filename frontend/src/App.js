@@ -11,6 +11,7 @@ import UpdateRoom from "./components/owner/UpdateRoom";
 import MyBookings from "./components/user/MyBookings";
 import { Toaster } from "react-hot-toast";
 import Profile from "./components/layouts/Profile";
+import UpdateProfile from "./components/layouts/UpdateProfile";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/update/profile/:id" element={<UpdateProfile />} />
           <Route path="/roomdetails/:id" element={<RoomDetails />} />
           <Route path="/bookings" element={<MyBookings />} />
           <Route path="/register" element={<Register />} />

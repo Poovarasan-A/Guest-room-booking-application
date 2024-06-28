@@ -5,6 +5,7 @@ import { getProperties } from "../redux/actions/propertyAction";
 import Header from "./user/Header";
 import { Link } from "react-router-dom";
 import Loader from "./layouts/Loader";
+import Footer from "./layouts/Footer";
 
 const Home = () => {
   const { rooms, loading } = useSelector((state) => state.roomState);
@@ -22,9 +23,9 @@ const Home = () => {
       {loading ? (
         <Loader />
       ) : (
-        <div className="text-white w-full h-screen flex flex-col items-center justify-center">
+        <div className="text-white w-full min-h-screen flex flex-col mt-[6.5rem] px-10">
           <Header hideAddProperty={shouldHideAddProperty} />
-          <div className="flex gap-10">
+          <div className="flex gap-10 flex-wrap justify-around items-start">
             {rooms &&
               rooms.map((room) => (
                 <Link
@@ -42,7 +43,7 @@ const Home = () => {
 
                   <div className="py-2 px-3">
                     <h2 className="font-semibold truncate">
-                      {room.property.state},{room.property.city}
+                      {room.property.city},{room.property.state}
                     </h2>
                     <p>{room.roomName}</p>
                     <b>Rs.{room.rentPerDay}/night</b>
@@ -52,6 +53,7 @@ const Home = () => {
           </div>
         </div>
       )}
+      <Footer />
     </>
   );
 };

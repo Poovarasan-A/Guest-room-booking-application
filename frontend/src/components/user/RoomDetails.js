@@ -10,6 +10,7 @@ import Loader from "../layouts/Loader";
 import Header from "./Header";
 import toast from "react-hot-toast";
 import { loggedUser } from "../../redux/actions/userActions";
+import Footer from "../layouts/Footer";
 
 const RoomDetails = () => {
   // Router hooks
@@ -172,7 +173,14 @@ const RoomDetails = () => {
                   - {room.floorSize}
                 </p>
                 <hr className="my-3 border-white/20" />
-                <div className="py-3">
+                <div className="py-3 flex items-center gap-4">
+                  <div className="w-[2.5rem] h-[2.5rem] rounded-full overflow-hidden bg-white">
+                    <img
+                      src={user?.images[0]}
+                      alt="user"
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
                   <b className="text-lg capitalize">
                     Hosted by {property?.owner?.name}
                   </b>
@@ -258,6 +266,7 @@ const RoomDetails = () => {
           </div>
         </div>
       )}
+      <Footer />
     </>
   );
 };

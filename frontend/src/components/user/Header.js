@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { CgMenuRightAlt } from "react-icons/cg";
 import { FaHome } from "react-icons/fa";
+import toast from "react-hot-toast";
 
 const Header = ({ hideProperties, hideAddProperty }) => {
   //Local state management
@@ -38,6 +39,7 @@ const Header = ({ hideProperties, hideAddProperty }) => {
   //Function  to handle logout
   const logoutHandler = () => {
     dispatch(logoutUser);
+    toast.success("Logout successful");
     setIsLogout(true); //sets logout state to trigger page reload
   };
 
@@ -99,7 +101,13 @@ const Header = ({ hideProperties, hideAddProperty }) => {
             <div className="relative">
               {/* navigation */}
               <div className="mx-4 border-2 border-white w-[6rem] rounded-full p-1 flex items-center justify-between">
-                <div className="w-[2.5rem] h-[2.5rem] rounded-full bg-white"></div>
+                <div className="w-[2.5rem] h-[2.5rem] rounded-full overflow-hidden bg-white">
+                  <img
+                    src={user?.images[0]}
+                    alt="user"
+                    className="w-full h-full object-cover"
+                  />
+                </div>
                 <div
                   className="pr-1 cursor-pointer"
                   onClick={() => setShowMenu(!showMenu)}

@@ -9,6 +9,19 @@ export const registerUser = async (req, res, next) => {
     //Extract user details from frontend request
     const { name, email, mobile, password } = req.body;
 
+    let images = [];
+    //here we creating base url to store images as url because host may vary while deploying
+    const BASE_URL = `${req.protocol}://${req.get("host")}`;
+
+    //Process each uploaded images and store thier urls
+    if (req.files.length > 0) {
+      req.files.forEach((file) => {
+        let url = `${BASE_URL}/images/${file.filename}`;
+        images.push(url);
+      });
+    }
+    req.body.images = images;
+
     //Here we hasing password for security(encrypting the password using bcrypt library)
     const salt = await bcrypt.genSalt(12);
     const hashedPassword = await bcrypt.hash(password, salt);
@@ -19,6 +32,7 @@ export const registerUser = async (req, res, next) => {
       mobile,
       email,
       password: hashedPassword,
+      images,
     });
     //send jwt token in response to store as cookie in browser upon successful registration
     sendToken(user, 201, res);
@@ -120,6 +134,24 @@ export const updateUser = async (req, res, next) => {
         message: "User not found",
       });
     }
+    //Prepare array to store updated images
+    let images = [];
+
+    //checks if the user deletes images to retain existing images
+    if (req.body.imagesDeleted === "false") {
+      images = user.images;
+    }
+
+    const BASE_URL = `${req.protocol}://${req.get("host")}`;
+
+    if (req.files.length > 0) {
+      req.files.forEach((file) => {
+        let url = `${BASE_URL}/images/${file.filename}`;
+        images.push(url);
+      });
+    }
+
+    req.body.images = images;
 
     //Update user details with the new details provide by user also running validations on new inputs
     user = await User.findByIdAndUpdate(req.params.id, req.body, {
