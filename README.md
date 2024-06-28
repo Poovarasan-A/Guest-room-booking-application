@@ -1,4 +1,3 @@
-
 # Guestroom Booking Application (MERN Stack)
 
 ## Overview
