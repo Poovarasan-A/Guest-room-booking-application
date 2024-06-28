@@ -11,6 +11,8 @@ import {
   newBookingSuccess,
 } from "../slices/bookingSlice";
 
+//======================== new booking action ============================
+
 export const newBooking = (bookingData) => async (dispatch) => {
   try {
     dispatch(newBookingReq());
@@ -21,6 +23,8 @@ export const newBooking = (bookingData) => async (dispatch) => {
   }
 };
 
+//======================== getting particular booking action ============================
+
 export const roombookings = (id) => async (dispatch) => {
   try {
     dispatch(getSingleBookingReq());
@@ -30,6 +34,8 @@ export const roombookings = (id) => async (dispatch) => {
     dispatch(getSingleBookingFail());
   }
 };
+
+//======================== fetching guest bookings action ============================
 
 export const guestRoomBookings = (id) => async (dispatch) => {
   try {

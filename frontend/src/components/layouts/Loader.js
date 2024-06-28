@@ -3,6 +3,7 @@ import { TailSpin } from "react-loader-spinner";
 const Loader = () => {
   return (
     <Fragment>
+      {/* Loader used from react-loader-spinner library */}
       <div className="w-full h-[80vh] flex items-center justify-center overflow-hidden">
         <TailSpin
           visible={true}

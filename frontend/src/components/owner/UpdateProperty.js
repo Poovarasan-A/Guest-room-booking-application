@@ -8,6 +8,7 @@ import { clearPropertyUpdated } from "../../redux/slices/propertySlice";
 import { useNavigate, useParams } from "react-router-dom";
 
 const UpdateProperty = () => {
+  //Local state for form Inputs
   const [propertyName, setPropertyName] = useState("");
   const [address, setAddress] = useState("");
   const [city, setCity] = useState("");
@@ -17,6 +18,7 @@ const UpdateProperty = () => {
   const [phoneNo, setPhoneNo] = useState("");
   const [description, setDescription] = useState("");
 
+  //getting datas from redux state management
   const { isPropertyUpdated, error, property } = useSelector(
     (state) => state.propertyState
   );
@@ -27,6 +29,7 @@ const UpdateProperty = () => {
 
   const { id } = useParams();
 
+  //Funciton to handle form submission of property details
   const propertyHandler = (e) => {
     e.preventDefault();
     const propertyData = {
@@ -58,6 +61,7 @@ const UpdateProperty = () => {
     dispatch(getSingleProperty(id));
   }, [isPropertyUpdated, error, dispatch, navigate, id, user]);
 
+  //UseEffect  to populate form fields with old property datas on page load
   useEffect(() => {
     if (property) {
       setPropertyName(property.propertyName);

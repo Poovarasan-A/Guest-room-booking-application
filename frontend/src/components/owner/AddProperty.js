@@ -5,6 +5,7 @@ import { clearPropertyCreated } from "../../redux/slices/propertySlice";
 import { useNavigate } from "react-router-dom";
 
 const AddProperty = () => {
+  // Using local state to manage datas before sending to request
   const [propertyName, setPropertyName] = useState("");
   const [address, setAddress] = useState("");
   const [city, setCity] = useState("");
@@ -22,6 +23,7 @@ const AddProperty = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  // dispatching property details to action
   const propertyHandler = (e) => {
     e.preventDefault();
     const propertyData = {

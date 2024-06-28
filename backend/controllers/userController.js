@@ -27,7 +27,7 @@ export const registerUser = async (req, res, next) => {
   }
 };
 
-//============================ Login user ======================================
+//============================ Login user =========================================
 
 export const loginUser = async (req, res, next) => {
   try {
@@ -63,7 +63,7 @@ export const loginUser = async (req, res, next) => {
   }
 };
 
-//============================ Logout user ======================================
+//============================ Logout user =======================================
 
 export const logoutUser = async (req, res, next) => {
   //Clearing the JWT token from browser cookies to make logout
@@ -108,7 +108,7 @@ export const specificUser = async (req, res, next) => {
   }
 };
 
-//============================ Update user ======================================
+//============================ Update user =================================================
 
 export const updateUser = async (req, res, next) => {
   try {
@@ -134,3 +134,5 @@ export const updateUser = async (req, res, next) => {
     return res.status(401).json({ message: error.message });
   }
 };
+
+//===================================== End =================================================

@@ -15,7 +15,7 @@ const Login = () => {
   const { isAuthenticated, error, user } = useSelector(
     (state) => state.userState
   );
-
+  //function to handle login
   const loginHandler = (e) => {
     e.preventDefault();
     const formData = {
@@ -38,7 +38,7 @@ const Login = () => {
       toast.error(error, {
         position: "top-center",
       });
-      dispatch(clearLoginErr());
+      dispatch(clearLoginErr()); // ensures clearing of error which already showed
     }
   }, [isAuthenticated, user, error, navigate, dispatch]);
 

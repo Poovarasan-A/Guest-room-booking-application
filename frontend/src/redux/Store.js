@@ -4,6 +4,7 @@ import propertyReducer from "./slices/propertySlice";
 import roomReducer from "./slices/roomSlices";
 import bookingReducer from "./slices/bookingSlice";
 
+//combine all reducers into a root reducer
 const reducer = combineReducers({
   userState: userReducer,
   propertyState: propertyReducer,
@@ -12,8 +13,8 @@ const reducer = combineReducers({
 });
 
 const store = configureStore({
-  reducer,
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware(),
+  reducer, //used combined reducers
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware(), //Default middleware setup
 });
 
 export default store;

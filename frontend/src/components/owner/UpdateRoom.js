@@ -83,7 +83,7 @@ const UpdateRoom = () => {
     dispatch(updateRoom(id, combinedData));
   };
 
-  //remove image while uploading
+  //remove images while uploading
 
   const removeImage = () => {
     setImages([]);

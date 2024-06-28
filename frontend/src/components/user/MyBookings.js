@@ -7,10 +7,10 @@ import { loggedUser } from "../../redux/actions/userActions";
 const MyBookings = () => {
   const dispatch = useDispatch();
 
+  //retrive bookings data for guest booked
   const { bookings } = useSelector((state) => state.bookingState);
   const { user = {} } = useSelector((state) => state.userState);
 
-  console.log(bookings);
   const userId = user?._id;
 
   useEffect(() => {
@@ -25,7 +25,7 @@ const MyBookings = () => {
       <Header hideAddProperty={shouldHideAddProperty} />
       <div className="mt-[5rem] ">
         <h2 className="font-bold text-xl">My Bookings</h2>
-
+        {/* Bookings card */}
         <div className="w-full flex gap-6">
           {bookings &&
             bookings.map((booking) => {

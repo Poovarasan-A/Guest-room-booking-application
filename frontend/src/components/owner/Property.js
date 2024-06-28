@@ -17,15 +17,14 @@ import { loggedUser } from "../../redux/actions/userActions";
 
 const Property = () => {
   const { user = {}, loading } = useSelector((state) => state.userState);
-  const {
-    properties = [],
-
-    isPropertyDeleted,
-  } = useSelector((state) => state.propertyState);
+  const { properties = [], isPropertyDeleted } = useSelector(
+    (state) => state.propertyState
+  );
   const { rooms = [], isRoomDeleted } = useSelector((state) => state.roomState);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  //Funciton to handle property deletion confirmation
   const propertyDeleteHandler = (e, id) => {
     e.preventDefault();
     Swal.fire({
@@ -55,6 +54,7 @@ const Property = () => {
     });
   };
 
+  //Function to handle room deletion confirmation
   const roomDeleteHandler = (e, id) => {
     e.preventDefault();
     Swal.fire({
@@ -83,18 +83,19 @@ const Property = () => {
       }
     });
   };
-
+  // Fetch user id once logged in
   const userId = user._id;
 
+  //Effect hook to fetch user details on page load
   useEffect(() => {
     dispatch(loggedUser());
   }, [dispatch]);
 
   useEffect(() => {
+    //checks user type for route restrictions
     if (user && user.userType === "guest") {
       navigate("/");
     }
-
     dispatch(ownerProperties(userId));
     dispatch(getRooms());
     if (isPropertyDeleted) {
@@ -107,6 +108,7 @@ const Property = () => {
     }
   }, [dispatch, userId, isPropertyDeleted, isRoomDeleted, navigate, user]);
 
+  // condition to hide your properties button in header
   const shouldHideProperties = true;
 
   return (

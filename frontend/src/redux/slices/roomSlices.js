@@ -11,6 +11,8 @@ const roomSlice = createSlice({
     rooms: [],
   },
   reducers: {
+    // -------------------------------------- add new room  -----------------------------------------
+
     addRoomReq(state, action) {
       return {
         ...state,
@@ -39,6 +41,8 @@ const roomSlice = createSlice({
         isRoomCreated: false,
       };
     },
+    // -------------------------------------- Get particular room  -----------------------------------------
+
     getSingleRoomReq(state, action) {
       return {
         ...state,
@@ -59,6 +63,8 @@ const roomSlice = createSlice({
         error: action.payload,
       };
     },
+    // -------------------------------------- update room  -----------------------------------------
+
     updateRoomReq(state, action) {
       return {
         ...state,
@@ -88,6 +94,8 @@ const roomSlice = createSlice({
         isRoomUpdated: false,
       };
     },
+    // -------------------------------------- delete room  -----------------------------------------
+
     deleteRoomReq(state, action) {
       return {
         ...state,
@@ -117,6 +125,7 @@ const roomSlice = createSlice({
       };
     },
   },
+  // -------------------------------------- Get all rooms  -----------------------------------------
   extraReducers: (builder) => {
     builder
       .addCase(getRooms.pending, (state) => {

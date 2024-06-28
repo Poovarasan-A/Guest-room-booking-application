@@ -3,6 +3,7 @@ import { loggedUser } from "../actions/userActions";
 
 const userSlice = createSlice({
   name: "user",
+  //initial state for slice
   initialState: {
     loading: false,
     isAuthenticated: false,
@@ -60,26 +61,7 @@ const userSlice = createSlice({
         error: null,
       };
     },
-    loadUserReq(state, action) {
-      return {
-        ...state,
-        loading: true,
-      };
-    },
-    loadUserSuccess(state, action) {
-      return {
-        ...state,
-        loading: false,
-        user: action.payload.user,
-      };
-    },
-    loadUserFail(state, action) {
-      return {
-        ...state,
-        loading: false,
-        error: action.payload,
-      };
-    },
+    //---------------------------- Update user --------------------------------------
     updateUserReq(state, action) {
       return {
         ...state,
@@ -102,6 +84,8 @@ const userSlice = createSlice({
         isUserUpdated: false,
       };
     },
+    //---------------------------- Logout user --------------------------------------
+
     logoutUserSuccess(state, action) {
       return {
         ...state,
@@ -117,6 +101,7 @@ const userSlice = createSlice({
       };
     },
   },
+  // ------------------------------------ Load logged user -------------------------------------
   extraReducers: (builder) => {
     builder
       .addCase(loggedUser.pending, (state) => {

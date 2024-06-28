@@ -7,10 +7,11 @@ import { HiMiniPencilSquare } from "react-icons/hi2";
 import Header from "../user/Header";
 
 const Profile = () => {
+  //Dispatch Hook used to dispatch actions from redux
   const dispatch = useDispatch();
-
+  //useSelectoe hooks allows to extract data from redux store state
   const { user, loading } = useSelector((state) => state.userState);
-
+  // Fetching Logged user details on page loads
   useEffect(() => {
     dispatch(loggedUser());
   }, [dispatch]);

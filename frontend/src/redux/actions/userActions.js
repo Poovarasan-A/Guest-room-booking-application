@@ -19,13 +19,13 @@ import axios from "axios";
 export const newUser = (formData) => async (dispatch) => {
   try {
     dispatch(registerReq());
-
+    //configuring headers to send images
     const config = {
       headers: {
         "Content-type": "multipart/form-data",
       },
     };
-
+    //posting user details to register
     const { data } = await axios.post(`/api/register`, formData, config);
     dispatch(registerSuccess(data));
   } catch (error) {
@@ -38,6 +38,7 @@ export const newUser = (formData) => async (dispatch) => {
 export const loginUser = (formData) => async (dispatch) => {
   try {
     dispatch(loginReq());
+    //posting user details to check the user existance and login
     const { data } = await axios.post(`/api/login`, formData);
     dispatch(loginSuccess(data));
   } catch (error) {
@@ -45,15 +46,17 @@ export const loginUser = (formData) => async (dispatch) => {
   }
 };
 
-//Load Loggedin User datas
+//========================= Load Loggedin User datas =========================
 
 export const loggedUser = createAsyncThunk(
   "user/loggedUser",
   async (_, { rejectWithValue }) => {
     try {
+      //making get request to profile endpoint to fetch logged user details
       const response = await axios.get(`/api/profile`);
       return response.data;
     } catch (error) {
+      //returning rejected promise with error value
       return rejectWithValue(
         error.response ? error.response.data : error.message
       );
@@ -66,6 +69,7 @@ export const loggedUser = createAsyncThunk(
 export const updateUser = (id, userData) => async (dispatch) => {
   try {
     dispatch(updateUserReq());
+    // sending datas to update user details
     const { data } = await axios.put(`/api/update/user/${id}`, userData);
     dispatch(updateUserSuccess(data));
   } catch (error) {
@@ -77,6 +81,7 @@ export const updateUser = (id, userData) => async (dispatch) => {
 
 export const logoutUser = async (dispatch) => {
   try {
+    //sending request to logout user
     await axios.get("/api/logout/");
     dispatch(logoutUserSuccess());
   } catch (error) {

@@ -11,6 +11,8 @@ const propertySlice = createSlice({
     isRoomCreated: false,
   },
   reducers: {
+    // -------------------------------------- Add new property  -----------------------------------------
+
     addPropertyReq(state, action) {
       return {
         ...state,
@@ -39,6 +41,8 @@ const propertySlice = createSlice({
         isPropertyCreated: false,
       };
     },
+    // -------------------------------------- Get particular property  -----------------------------------------
+
     getSinglePropertyReq(state, action) {
       return {
         ...state,
@@ -59,6 +63,8 @@ const propertySlice = createSlice({
         error: action.payload,
       };
     },
+    // -------------------------------------- get owner's property  -----------------------------------------
+
     getOwnerPropertySuccess(state, action) {
       return {
         ...state,
@@ -73,6 +79,8 @@ const propertySlice = createSlice({
         error: action.payload,
       };
     },
+    // -------------------------------------- Update property  -----------------------------------------
+
     updatePropertyReq(state, action) {
       return {
         ...state,
@@ -102,6 +110,8 @@ const propertySlice = createSlice({
         isPropertyUpdated: false,
       };
     },
+    // -------------------------------------- delete property  -----------------------------------------
+
     deletePropertyReq(state, action) {
       return {
         ...state,
@@ -130,6 +140,8 @@ const propertySlice = createSlice({
       };
     },
   },
+  // -------------------------------------- get all properties  -----------------------------------------
+
   extraReducers: (builder) => {
     builder
       .addCase(getProperties.pending, (state) => {

@@ -12,40 +12,48 @@ import toast from "react-hot-toast";
 import { loggedUser } from "../../redux/actions/userActions";
 
 const RoomDetails = () => {
+  // Router hooks
   const { id } = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  //Retriving datas from redux state
   const { room = {}, loading } = useSelector((state) => state.roomState);
   const { property = {} } = useSelector((state) => state.propertyState);
   const { user = {} } = useSelector((state) => state.userState);
   const { bookings = [], isBookingCreated } = useSelector(
     (state) => state.bookingState
   );
+
+  //Property and room id to fetch datas
   const propertyId = room.property;
   const roomId = room._id;
 
   useEffect(() => {
+    //Redirects to bookings page after successfull booking creation
     if (isBookingCreated) {
       toast.success(`Room booked successfully`);
       navigate("/bookings");
     }
+    //Dispatch actions to fetch required data
     dispatch(loggedUser());
     dispatch(getSingleRoom(id));
     dispatch(getSingleProperty(propertyId));
     dispatch(roombookings(roomId));
   }, [dispatch, id, propertyId, roomId, isBookingCreated, navigate]);
 
+  //Date Range picker config
   const { RangePicker } = DatePicker;
   const dateFormat = "DD/MM/YYYY";
 
-  // Booking calendar
+  // Booking calendar local states
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
   const [totalPrice, setTotalPrice] = useState(0);
 
   // selected date disable function
 
+  //Function to get dates between start and end dates
   const getDatesBetween = (start, end) => {
     let dates = [];
     let current = moment(start).startOf("day");
@@ -57,6 +65,7 @@ const RoomDetails = () => {
     return dates;
   };
 
+  //Funciton to disable dates already booked by other users
   const disableDate = (current) => {
     if (current && current < moment().endOf("day")) {
       return true;
@@ -68,6 +77,7 @@ const RoomDetails = () => {
     return disableDates.some((date) => current.isSame(date, "day"));
   };
 
+  //Handle data selection in the range picker
   const handleSelect = (dates) => {
     if (!Array.isArray(dates) || dates.length !== 2) {
       message.error("Please select a valid date range.");
@@ -75,6 +85,7 @@ const RoomDetails = () => {
     }
     const [startDate, endDate] = dates;
 
+    //calculates duration in days and validate against min and max days
     const duration = moment.duration(endDate.diff(startDate)).asDays();
     if (duration < room.minBookingDays || duration > room.maxBookingDays) {
       message.error(
@@ -82,6 +93,8 @@ const RoomDetails = () => {
       );
       return;
     }
+
+    //Calculate total price based on selected dates and room rent per day
     const dayCount = Math.round((endDate - startDate) / (1000 * 60 * 60 * 24));
     const price = room.rentPerDay * dayCount;
     setStartDate(startDate);
@@ -89,6 +102,7 @@ const RoomDetails = () => {
     setTotalPrice(price);
   };
 
+  //to calculate total no.of.dates selected
   const dayCount = Math.round((endDate - startDate) / (1000 * 60 * 60 * 24));
 
   const handleBook = (e) => {
@@ -103,6 +117,8 @@ const RoomDetails = () => {
       endDate,
       totalPrice,
     };
+
+    //dispatching newBooking action to create new booking
     dispatch(newBooking(bookingData));
   };
   const shouldHideAddProperty = true;
@@ -145,7 +161,7 @@ const RoomDetails = () => {
                 </>
               )}
             </div>
-            {/* Details */}
+            {/*Room Details */}
             <div className="w-full flex gap-8 justify-between">
               <div>
                 <h2 className="font-semibold text-2xl">

@@ -6,10 +6,15 @@ import { CgMenuRightAlt } from "react-icons/cg";
 import { FaHome } from "react-icons/fa";
 
 const Header = ({ hideProperties, hideAddProperty }) => {
+  //Local state management
+  //controls visibility of dropdown
   const [showMenu, setShowMenu] = useState(false);
+  //Tracks logout action
   const [isLogout, setIsLogout] = useState(false);
+  //Ref for menu dropdown
   const menuRef = useRef();
 
+  //retrives user and authtication status from  redux management
   const { user = {}, isAuthenticated } = useSelector(
     (state) => state.userState
   );
@@ -18,23 +23,27 @@ const Header = ({ hideProperties, hideAddProperty }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  //Handler for becoming host of their properties
   const hostHandler = (e) => {
     e.preventDefault();
     const userData = {
       userType,
     };
+    //dispacthes updateUser action to update userType
     dispatch(updateUser(user._id, userData));
+    //on successfull updation navigate to add new property page
     navigate("/add/property");
   };
 
+  //Function  to handle logout
   const logoutHandler = () => {
     dispatch(logoutUser);
-    setIsLogout(true);
+    setIsLogout(true); //sets logout state to trigger page reload
   };
 
   useEffect(() => {
     if (isLogout && !isAuthenticated) {
-      window.location.reload();
+      window.location.reload(); //reloads the page after logout
     }
   }, [isLogout, isAuthenticated]);
 
@@ -44,6 +53,7 @@ const Header = ({ hideProperties, hideAddProperty }) => {
       ref={menuRef}
     >
       <div className="h-full w-full flex items-center justify-between gap-8 px-32">
+        {/* Logo and Home Link */}
         <Link to="/" className="flex items-center gap-2 cursor-pointer">
           <FaHome className="text-white text-3xl" />
           <h2 className="text-3xl flex">
@@ -51,7 +61,9 @@ const Header = ({ hideProperties, hideAddProperty }) => {
             <p className="text-white">𝐒𝐭𝐚𝐲</p>
           </h2>
         </Link>
+        {/* Menu options */}
         <div className="flex items-center gap-8">
+          {/* Addnew Property Link */}
           {!hideAddProperty && (
             <Link
               to="/add/property"
@@ -60,6 +72,7 @@ const Header = ({ hideProperties, hideAddProperty }) => {
               Add New Property
             </Link>
           )}
+          {/* Your properties and become an host link */}
           {!hideProperties && (
             <div>
               {user && user.userType === "owner" ? (
@@ -81,6 +94,7 @@ const Header = ({ hideProperties, hideAddProperty }) => {
               )}
             </div>
           )}
+          {/* User authentication and navigation to show login button */}
           {user && isAuthenticated ? (
             <div className="relative">
               {/* navigation */}

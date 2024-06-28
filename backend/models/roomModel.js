@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 
 const roomSchema = new mongoose.Schema({
+  //Reference to the property the room belongs to, for adding rooms under particular property
   property: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Property",

@@ -35,7 +35,7 @@ const Register = () => {
     }
     if (error) {
       toast.error(error);
-      dispatch(clearLoginErr());
+      dispatch(clearLoginErr()); //clearing error and prevents repeated error after corrected
     }
   }, [isAuthenticated, name, error, navigate, dispatch]);
 
@@ -111,6 +111,7 @@ const Register = () => {
         >
           SignUp
         </button>
+        {/* Link to navigate if user wants to create new account  */}
         <p>
           Have an account?
           <Link to="/login" className="text-blue-600">

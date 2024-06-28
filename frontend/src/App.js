@@ -16,6 +16,7 @@ function App() {
   return (
     <div className="bg-black w-full min-h-screen overflow-hidden">
       <Router>
+        {/* Toaster config for showing toasts */}
         <Toaster
           toastOptions={{ style: { background: "#363636", color: "#fff" } }}
         />

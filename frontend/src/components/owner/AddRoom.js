@@ -24,20 +24,22 @@ const AddRoom = () => {
   const navigate = useNavigate();
 
   const { id } = useParams();
-
+  //Handle file input changes
   const onImagesChange = (e) => {
+    // converts files object into array
     const images = Array.from(e.target.files);
-
+    //for each image new instance reader is created
     images.forEach((image) => {
       const reader = new FileReader();
-
+      //onload is a eventHandler
       reader.onload = () => {
         if (reader.readyState === 2) {
+          //updates a state by appending new image preview url
           setImagesPreview((oldArray) => [...oldArray, reader.result]);
           setImages((oldArray) => [...oldArray, image]);
         }
       };
-
+      //reads the content of image as data URL
       reader.readAsDataURL(image);
     });
   };
@@ -45,7 +47,9 @@ const AddRoom = () => {
   /* AMENITIES */
 
   const handleAmenityChange = (event) => {
+    //holds an array of selected values
     const { value } = event.target;
+    //checks amenities already selected it filters the unselected value and update state with selected ones
     if (amenities.includes(value)) {
       setAmenities(amenities.filter((item) => item !== value));
     } else {
@@ -68,18 +72,19 @@ const AddRoom = () => {
 
     // Combine productData and imageData into one FormData object
     const combinedData = new FormData();
+    // for loop iterate over each property  in roomData object and append its value to combinedData
     for (const key in roomData) {
       combinedData.append(key, roomData[key]);
     }
-
+    // iterates over an array of images and append each image to combinedData under the images
     images.forEach((image) => {
       combinedData.append("images", image);
     });
+    // dispacthes an action and sending propertyId and datas
     dispatch(addNewRoom(id, combinedData));
   };
 
-  //remove image while uploading
-
+  //remove image if mistakenly selected before uploading
   const removeImage = (image) => {
     setImagesPreview(imagesPreview.filter((img) => img !== image));
   };

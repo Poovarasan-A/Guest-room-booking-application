@@ -151,10 +151,12 @@ export const addRoom = async (req, res, next) => {
   });
 
   try {
+    //Finds property by above fetched id
     const property = await Property.findById(id);
     if (!property) {
       return res.status(404).send({ error: "Property not found" });
     }
+    //Adding room to property's rooms array and save both
     property.rooms.push(room._id);
     await property.save();
     await room.save();
@@ -168,8 +170,10 @@ export const addRoom = async (req, res, next) => {
 
 export const getAllRooms = async (req, res, next) => {
   try {
+    //Fetching all rooms from the database and populate property details to show in client side
     const rooms = await Room.find().populate("property", "city state");
 
+    //success response with count of rooms
     res.status(201).json({
       message: "Rooms fetched Successfully",
       count: rooms.length,
@@ -184,6 +188,7 @@ export const getAllRooms = async (req, res, next) => {
 
 export const singleRoom = async (req, res, next) => {
   try {
+    //Fetching a specific room by room Id
     const room = await Room.findById(req.params.id);
     if (!room) {
       res.status(404).json({ message: "Room not found" });
@@ -198,13 +203,15 @@ export const singleRoom = async (req, res, next) => {
 
 export const updateRoom = async (req, res, next) => {
   try {
+    //Fetching a specific room by room Id for checking room existance
     let room = await Room.findById(req.params.id);
     if (!room) {
       res.status(404).json({ message: "Room not found" });
     }
-
+    //Prepare array to store updated images
     let images = [];
 
+    //checks if the user deletes images to retain existing images
     if (req.body.imagesDeleted === "false") {
       images = room.images;
     }
@@ -213,7 +220,7 @@ export const updateRoom = async (req, res, next) => {
 
     if (req.files.length > 0) {
       req.files.forEach((file) => {
-        let url = `${BASE_URL}/images/${file.filename}`; // Use file.filename instead of file.originalname
+        let url = `${BASE_URL}/images/${file.filename}`;
         images.push(url);
       });
     }
@@ -226,6 +233,7 @@ export const updateRoom = async (req, res, next) => {
         .map((amenity) => amenity.trim());
     }
 
+    //Updating room with new data also run validations on new data
     room = await Room.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
       runValidators: true,
@@ -236,18 +244,21 @@ export const updateRoom = async (req, res, next) => {
   }
 };
 
-//================================= Delete Room ========================================
+//================================= Delete Room ======================================
 
 export const deleteRoom = async (req, res, next) => {
   try {
+    //Find room based on id provided in request to make delete operation
     let room = await Room.findById(req.params.id);
     if (!room) {
       res.status(404).json({ message: "Room not found" });
     }
-
+    //Delete the room using room id from the database
     room = await Room.findByIdAndDelete(req.params.id);
     res.status(201).json({ message: "Room deleted Successfully" });
   } catch (error) {
     res.status(400).json({ message: error });
   }
 };
+
+//==================================== End ===========================================

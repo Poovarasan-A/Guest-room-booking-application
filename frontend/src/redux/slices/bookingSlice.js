@@ -9,6 +9,8 @@ const bookSlice = createSlice({
     error: null,
   },
   reducers: {
+    // -------------------------------------- Add new Booking  -----------------------------------------
+
     newBookingReq(state, action) {
       return {
         ...state,
@@ -31,6 +33,7 @@ const bookSlice = createSlice({
         isBookingCreated: false,
       };
     },
+    // -------------------------------------- Get particular Boooking  -----------------------------------------
 
     getSingleBookingReq(state, action) {
       return {
@@ -52,6 +55,8 @@ const bookSlice = createSlice({
         error: action.payload,
       };
     },
+    // -------------------------------------- Get Guest Boookings  -----------------------------------------
+
     getGuestBookingReq(state, action) {
       return {
         ...state,
