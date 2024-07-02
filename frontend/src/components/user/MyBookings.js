@@ -54,7 +54,8 @@ const MyBookings = () => {
                         <div className=" w-full h-[15rem] rounded-xl overflow-hidden">
                           <img
                             src={
-                              booking.room.images[0] || "/images/props-img.jpg"
+                              booking.room?.images?.[0] ||
+                              "/images/props-img.jpg"
                             }
                             alt="room"
                             className="w-full h-full object-cover"

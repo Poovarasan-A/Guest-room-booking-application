@@ -117,7 +117,9 @@ const AddRoom = () => {
           {/* 1st half */}
           <div className="w-[45%] flex flex-col gap-5">
             <div className="flex flex-col gap-3">
-              <label htmlFor="name">Room Name</label>
+              <label className="cursor-pointer" htmlFor="name">
+                Room Name
+              </label>
               <input
                 id="name"
                 type="text"
@@ -128,7 +130,9 @@ const AddRoom = () => {
               />
             </div>
             <div className="flex flex-col gap-3">
-              <label htmlFor="size">Floor Size</label>
+              <label className="cursor-pointer" htmlFor="size">
+                Floor Size
+              </label>
               <input
                 id="size"
                 type="text"
@@ -140,7 +144,9 @@ const AddRoom = () => {
             </div>
             <div className="flex gap-3">
               <div className="flex flex-col gap-3">
-                <label htmlFor="beds">No of Beds</label>
+                <label className="cursor-pointer" htmlFor="beds">
+                  No of Beds
+                </label>
                 <input
                   id="beds"
                   type="number"
@@ -151,7 +157,9 @@ const AddRoom = () => {
                 />
               </div>
               <div className="flex flex-col gap-3">
-                <label htmlFor="guests">No of Guets</label>
+                <label className="cursor-pointer" htmlFor="guests">
+                  No of Guets
+                </label>
                 <input
                   id="guests"
                   type="number"
@@ -166,7 +174,9 @@ const AddRoom = () => {
           {/* 2nd half */}
           <div className="w-[45%] flex flex-col gap-5">
             <div className="flex flex-col gap-3">
-              <label htmlFor="rent">Rents Per Day</label>
+              <label className="cursor-pointer" htmlFor="rent">
+                Rents Per Day
+              </label>
               <input
                 id="rent"
                 type="number"
@@ -177,7 +187,9 @@ const AddRoom = () => {
               />
             </div>
             <div className="flex flex-col gap-3">
-              <label htmlFor="minBooking">Min. Booking Days</label>
+              <label className="cursor-pointer" htmlFor="minBooking">
+                Min. Booking Days
+              </label>
               <input
                 id="minBooking"
                 type="number"
@@ -188,7 +200,9 @@ const AddRoom = () => {
               />
             </div>
             <div className="flex flex-col gap-3">
-              <label htmlFor="maxBooking">Max. Booking Days</label>
+              <label className="cursor-pointer" htmlFor="maxBooking">
+                Max. Booking Days
+              </label>
               <input
                 id="maxBooking"
                 type="number"
@@ -203,7 +217,9 @@ const AddRoom = () => {
         {/* Amenities */}
         <div className="flex w-full gap-x-12 justify-evenly">
           <div className="w-[45%]">
-            <label htmlFor="maxBooking">Amenities</label>
+            <label className="cursor-pointer" htmlFor="maxBooking">
+              Amenities
+            </label>
             <div className="p-5 my-4 border-2 w-full flex gap-4  border-gray-200 rounded-lg">
               <div className="flex w-full justify-around">
                 {/* First half */}
@@ -217,7 +233,9 @@ const AddRoom = () => {
                       checked={amenities.includes("Wifi")}
                       onChange={handleAmenityChange}
                     />
-                    <label htmlFor="wifi">Wifi</label>
+                    <label className="cursor-pointer" htmlFor="wifi">
+                      Wifi
+                    </label>
                   </div>
                   <div className="flex gap-2">
                     <input
@@ -228,7 +246,9 @@ const AddRoom = () => {
                       checked={amenities.includes("TV")}
                       onChange={handleAmenityChange}
                     />
-                    <label htmlFor="tv">TV</label>
+                    <label className="cursor-pointer" htmlFor="tv">
+                      TV
+                    </label>
                   </div>
                   <div className="flex gap-2">
                     <input
@@ -239,7 +259,9 @@ const AddRoom = () => {
                       checked={amenities.includes("Air Conditioning")}
                       onChange={handleAmenityChange}
                     />
-                    <label htmlFor="ac">Air Conditioning</label>
+                    <label className="cursor-pointer" htmlFor="ac">
+                      Air Conditioning
+                    </label>
                   </div>
                   <div className="flex gap-2">
                     <input
@@ -250,7 +272,9 @@ const AddRoom = () => {
                       checked={amenities.includes("Kitchen")}
                       onChange={handleAmenityChange}
                     />
-                    <label htmlFor="kitchen">Kitchen</label>
+                    <label className="cursor-pointer" htmlFor="kitchen">
+                      Kitchen
+                    </label>
                   </div>
                   <div className="flex gap-2">
                     <input
@@ -261,7 +285,9 @@ const AddRoom = () => {
                       checked={amenities.includes("Workspace")}
                       onChange={handleAmenityChange}
                     />
-                    <label htmlFor="workspace">Workspace</label>
+                    <label className="cursor-pointer" htmlFor="workspace">
+                      Workspace
+                    </label>
                   </div>
                   <div className="flex gap-2">
                     <input
@@ -272,7 +298,9 @@ const AddRoom = () => {
                       checked={amenities.includes("First aid kit")}
                       onChange={handleAmenityChange}
                     />
-                    <label htmlFor="kit">First aid kit</label>
+                    <label className="cursor-pointer" htmlFor="kit">
+                      First aid kit
+                    </label>
                   </div>
                   <div className="flex gap-2">
                     <input
@@ -283,7 +311,9 @@ const AddRoom = () => {
                       checked={amenities.includes("Room heater")}
                       onChange={handleAmenityChange}
                     />
-                    <label htmlFor="heater">Room heater</label>
+                    <label className="cursor-pointer" htmlFor="heater">
+                      Room heater
+                    </label>
                   </div>
                 </div>
                 {/* Second half */}
@@ -297,7 +327,9 @@ const AddRoom = () => {
                       checked={amenities.includes("Balcony")}
                       onChange={handleAmenityChange}
                     />
-                    <label htmlFor="balcony">Balcony</label>
+                    <label className="cursor-pointer" htmlFor="balcony">
+                      Balcony
+                    </label>
                   </div>
                   <div className="flex gap-2">
                     <input
@@ -308,7 +340,9 @@ const AddRoom = () => {
                       checked={amenities.includes("Microwave")}
                       onChange={handleAmenityChange}
                     />
-                    <label htmlFor="micro">Microwave</label>
+                    <label className="cursor-pointer" htmlFor="micro">
+                      Microwave
+                    </label>
                   </div>
                   <div className="flex gap-2">
                     <input
@@ -319,7 +353,9 @@ const AddRoom = () => {
                       checked={amenities.includes("Bath tub")}
                       onChange={handleAmenityChange}
                     />
-                    <label htmlFor="tub">Bath tub</label>
+                    <label className="cursor-pointer" htmlFor="tub">
+                      Bath tub
+                    </label>
                   </div>
                   <div className="flex gap-2">
                     <input
@@ -330,7 +366,9 @@ const AddRoom = () => {
                       checked={amenities.includes("Iron")}
                       onChange={handleAmenityChange}
                     />
-                    <label htmlFor="iron">Iron</label>
+                    <label className="cursor-pointer" htmlFor="iron">
+                      Iron
+                    </label>
                   </div>
                   <div className="flex gap-2">
                     <input
@@ -341,7 +379,9 @@ const AddRoom = () => {
                       checked={amenities.includes("Washing machine")}
                       onChange={handleAmenityChange}
                     />
-                    <label htmlFor="washing">Washing machine</label>
+                    <label className="cursor-pointer" htmlFor="washing">
+                      Washing machine
+                    </label>
                   </div>
                   <div className="flex gap-2">
                     <input
@@ -352,7 +392,9 @@ const AddRoom = () => {
                       checked={amenities.includes("Security camera")}
                       onChange={handleAmenityChange}
                     />
-                    <label htmlFor="security">Security camera</label>
+                    <label className="cursor-pointer" htmlFor="security">
+                      Security camera
+                    </label>
                   </div>
                   <div className="flex gap-2">
                     <input
@@ -363,7 +405,9 @@ const AddRoom = () => {
                       checked={amenities.includes("Fridge")}
                       onChange={handleAmenityChange}
                     />
-                    <label htmlFor="fridge">Fridge</label>
+                    <label className="cursor-pointer" htmlFor="fridge">
+                      Fridge
+                    </label>
                   </div>
                 </div>
               </div>
@@ -371,7 +415,7 @@ const AddRoom = () => {
           </div>
           {/* Images Uploading */}
           <div className="w-[45%]">
-            <label htmlFor="maxBooking">
+            <label className="cursor-pointer" htmlFor="maxBooking">
               Property Images (add atleast 5 images)
             </label>
 

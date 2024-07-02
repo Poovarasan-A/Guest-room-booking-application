@@ -8,6 +8,27 @@ export const registerUser = async (req, res, next) => {
   try {
     //Extract user details from frontend request
     const { name, email, mobile, password } = req.body;
+    //using regEx for email validation
+    let isEmail = /^[a-z]+@[a-z]+\.[a-z]+$/;
+
+    if (!isEmail.test(email)) {
+      res.status(400).json({ message: "Please enter valid Email" });
+    }
+    //using regEx for mobile number validation
+    let mobNum = /\d{10}/;
+
+    if (!mobNum.test(mobile)) {
+      res.status(400).json({ message: "Please enter valid Mobile number" });
+    }
+
+    //using regEx for mobile number validation
+    let isPassowrd = /\w\d{6}/;
+
+    if (!isPassowrd.test(password)) {
+      res
+        .status(400)
+        .json({ message: "Password characters should be atleast 6" });
+    }
 
     let images = [];
     //here we creating base url to store images as url because host may vary while deploying

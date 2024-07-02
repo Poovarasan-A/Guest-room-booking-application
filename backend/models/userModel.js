@@ -1,5 +1,4 @@
 import mongoose from "mongoose";
-import validator from "validator"; // Used validator library for input validations
 import jwt from "jsonwebtoken";
 
 //Defined fields to collect datas from user and marked some fields with required and message
@@ -16,13 +15,11 @@ const userSchema = new mongoose.Schema({
   email: {
     type: String,
     required: [true, "Please enter your email"],
-    validate: [validator.isEmail, "Please enter valid email"],
     unique: true,
   },
   password: {
     type: String,
     required: [true, "Please create your password"],
-    minLength: [6, "Password characters should be atleast 6"],
     select: false,
   },
   images: [

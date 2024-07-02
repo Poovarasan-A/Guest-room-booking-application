@@ -140,9 +140,7 @@ export const addRoom = async (req, res, next) => {
 
   //Here converting and storing amenities string to array if provide as string for showing amenities seperately in client side
   if (typeof req.body.amenities === "string") {
-    req.body.amenities = req.body.amenities
-      .split(",")
-      .map((amenity) => amenity.trim());
+    req.body.amenities = req.body.amenities.split(",");
   }
 
   //Create a new room associated with the particular property
@@ -228,9 +226,7 @@ export const updateRoom = async (req, res, next) => {
     req.body.images = images;
 
     if (typeof req.body.amenities === "string") {
-      req.body.amenities = req.body.amenities
-        .split(",")
-        .map((amenity) => amenity.trim());
+      req.body.amenities = req.body.amenities.split(",");
     }
 
     //Updating room with new data also run validations on new data

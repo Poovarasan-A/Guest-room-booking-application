@@ -27,13 +27,18 @@ const Header = ({ hideProperties, hideAddProperty }) => {
   //Handler for becoming host of their properties
   const hostHandler = (e) => {
     e.preventDefault();
-    const userData = {
-      userType,
-    };
-    //dispacthes updateUser action to update userType
-    dispatch(updateUser(user._id, userData));
+    if (isAuthenticated) {
+      const userData = {
+        userType,
+      };
+      //dispacthes updateUser action to update userType
+      dispatch(updateUser(user._id, userData));
+      navigate("/add/property");
+    }
     //on successfull updation navigate to add new property page
-    navigate("/add/property");
+    if (!isAuthenticated) {
+      navigate("/login");
+    }
   };
 
   //Function  to handle logout

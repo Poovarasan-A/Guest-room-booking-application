@@ -57,11 +57,11 @@ const RoomDetails = () => {
   //Function to get dates between start and end dates
   const getDatesBetween = (start, end) => {
     let dates = [];
-    let current = moment(start).startOf("day");
+    let startDate = moment(start).startOf("day");
     const endDate = moment(end).startOf("day");
-    while (current <= endDate) {
-      dates.push(current.clone().format("YYYY-MM-DD"));
-      current.add(1, "days");
+    while (startDate <= endDate) {
+      dates.push(startDate.clone().format("YYYY-MM-DD"));
+      startDate.add(1, "days");
     }
     return dates;
   };
@@ -80,10 +80,6 @@ const RoomDetails = () => {
 
   //Handle data selection in the range picker
   const handleSelect = (dates) => {
-    if (!Array.isArray(dates) || dates.length !== 2) {
-      message.error("Please select a valid date range.");
-      return;
-    }
     const [startDate, endDate] = dates;
 
     //calculates duration in days and validate against min and max days
