@@ -37,6 +37,11 @@ app.use("/api/", user);
 app.use("/api/", property);
 app.use("/api/", booking);
 
+app.use(express.static(path.join(__dirname, "../frontend/build")));
+app.get("*", (req, res) => {
+  res.sendFile(path.resolve(__dirname, "../frontend/build/index.html"));
+});
+
 const port = process.env.PORT;
 
 //Making connection to database
